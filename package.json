@@ -1,6 +1,6 @@
 {
   "name": "react-native-postpay-widget",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Native Postpay Widget",
   "main": "./src/index.js",
   "scripts": {
@@ -12,8 +12,9 @@
   },
   "keywords": [
     "react-native",
-    "@postpay/react-native-widget",
-    "react-native-widget"
+    "react-native-postpay-widget",
+    "react-native-postpay",
+    "postpay"
   ],
   "author": "Postpay <tony@postpay.io> (https://github.com/postpayio)",
   "license": "MIT",

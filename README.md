@@ -49,8 +49,6 @@ type PostpayWidgetProps = {
     currency: String,
     closeButton?: Boolean,
     numInstalments?: Number,
-    onPressLink?: void,
-    requestCloseModal?: void,
     style?: StyleProp<ViewStyle>,
 };
 ```
