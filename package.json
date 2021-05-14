@@ -1,14 +1,14 @@
 {
-  "name": "@postpay/react-native-widget",
+  "name": "react-native-postpay-widget",
   "version": "0.1.0",
-  "description": "React Native Widget",
+  "description": "React Native Postpay Widget",
   "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/postpayio/react-native-widget.git"
+    "url": "git+https://github.com/postpayio/react-native-postpay-widget.git"
   },
   "keywords": [
     "react-native",
@@ -29,7 +29,7 @@
     "react-native-webview": "^9.3.0"
   },
   "bugs": {
-    "url": "https://github.com/postpayio/react-native-widget/issues"
+    "url": "https://github.com/postpayio/react-native-postpay-widget/issues"
   },
-  "homepage": "https://github.com/postpayio/react-native-widget#readme"
+  "homepage": "https://github.com/postpayio/react-native-postpay-widget#readme"
 }
