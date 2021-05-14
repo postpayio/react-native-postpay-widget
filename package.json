@@ -1,0 +1,35 @@
+{
+  "name": "@postpay/react-native-widget",
+  "version": "0.1.0",
+  "description": "React Native Widget",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/postpayio/react-native-widget.git"
+  },
+  "keywords": [
+    "react-native",
+    "@postpay/react-native-widget",
+    "react-native-widget"
+  ],
+  "author": "Postpay <tony@postpay.io> (https://github.com/postpayio)",
+  "license": "MIT",
+  "dependencies": {
+    "react-native-autoheight-webview": "^1.5.8"
+  },
+  "devDependencies": {
+    "@react-native-community/eslint-config": "^2.0.0",
+    "eslint": "^7.9.0",
+    "react": "^16.9.0"
+  },
+  "peerDependencies": {
+    "react-native-webview": "^9.3.0"
+  },
+  "bugs": {
+    "url": "https://github.com/postpayio/react-native-widget/issues"
+  },
+  "homepage": "https://github.com/postpayio/react-native-widget#readme"
+}
