@@ -1,4 +1,6 @@
 import { Component } from 'react';
-import {ProductWidgetProps} from './components/ProductWidget'
+import {WidgetBaseProps} from './components/WidgetBase'
 
-export class ProductWidget extends Component<ProductWidgetProps> {}
+export class PostpayWidget extends Component<WidgetBaseProps> {}
+
+export class ModalInfo extends Component<WidgetBaseProps> {}
