@@ -1,6 +1,6 @@
 {
   "name": "react-native-postpay-widget",
-  "version": "0.1.6",
+  "version": "0.1.10",
   "description": "React Native Postpay Widget",
   "main": "./src/index.js",
   "scripts": {

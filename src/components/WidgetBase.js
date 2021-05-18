@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Linking, View, StyleProp, ViewStyle } from 'react-native';
+import React, { useRef, useState } from 'react';
+import { Linking, View, StyleProp, ViewStyle, Dimensions } from 'react-native';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 
 export type WidgetBaseProps = {
@@ -16,6 +16,8 @@ export type WidgetBaseProps = {
     style?: StyleProp<ViewStyle>,
 };
 
+const deviceHeight = Dimensions.get('window').height;
+
 const WidgetBase = (props: WidgetBaseProps) => {
     const {
         merchantId,
@@ -31,11 +33,18 @@ const WidgetBase = (props: WidgetBaseProps) => {
         style,
     } = props;
     const [webViewHeight, setWebViewHeight] = useState(null);
+    const currentHeight = useRef();
 
     const onMessage = ({ nativeEvent }) => {
         const res = JSON.parse(nativeEvent.data);
+
         if (res.type === 'PostpayWidgetLoaded') {
             setWebViewHeight(res.height);
+            currentHeight.current = res.height;
+        }
+        if (res.height && res.width && currentHeight.current > deviceHeight) {
+            setWebViewHeight(res.height);
+            currentHeight.current = res.height;
         }
         if (res.type === 'PostpayInfoModalClose') {
             requestCloseModal?.();
@@ -86,6 +95,7 @@ const WidgetBase = (props: WidgetBaseProps) => {
                 source={{
                     uri: getUrl(),
                 }}
+                style={widgetType !== 'info-modal' && { width: style?.width }}
                 javaScriptEnabled={true}
                 scrollEnabled={false}
                 onMessage={onMessage}

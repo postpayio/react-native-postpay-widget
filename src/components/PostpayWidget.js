@@ -19,7 +19,11 @@ const PostpayWidget = (props: WidgetBaseProps) => {
     return (
         <View>
             <WidgetBase {...props} onPressLink={onPressLink} />
-            <Modal transparent visible={visible} animationType="fade">
+            <Modal
+                onRequestClose={requestCloseModal}
+                transparent
+                visible={visible}
+                animationType="fade">
                 <SafeAreaView style={styles.wrapModal}>
                     <ModalInfo {...rest} requestCloseModal={requestCloseModal} />
                 </SafeAreaView>
