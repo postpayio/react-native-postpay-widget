@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { Linking, View, StyleProp, ViewStyle, Dimensions } from 'react-native';
+import { Linking, View, StyleProp, ViewStyle, Dimensions, Platform } from 'react-native';
 import AutoHeightWebView from 'react-native-autoheight-webview';
 
 export type WidgetBaseProps = {
@@ -34,15 +34,33 @@ const WidgetBase = (props: WidgetBaseProps) => {
     } = props;
     const [webViewHeight, setWebViewHeight] = useState(null);
     const currentHeight = useRef();
+    const webViewRef = useRef();
 
     const onMessage = ({ nativeEvent }) => {
         const res = JSON.parse(nativeEvent.data);
-
-        if (res.type === 'PostpayWidgetLoaded') {
+        console.log(res);
+        const isAndroid = Platform.OS === 'android';
+        if (
+            (res.type === 'PostpayWidgetLoaded' &&
+                widgetType === 'payment-summary' &&
+                (numInstalments < 2 || !numInstalments)) ||
+            isAndroid ||
+            widgetType === 'info-modal'
+        ) {
+            if (res.height === currentHeight.current || res.height < 0) {
+                return;
+            }
             setWebViewHeight(res.height);
             currentHeight.current = res.height;
         }
         if (res.height && res.width && currentHeight.current > deviceHeight) {
+            if (
+                res.height === currentHeight.current ||
+                widgetType === 'info-modal' ||
+                res.height < 0
+            ) {
+                return;
+            }
             setWebViewHeight(res.height);
             currentHeight.current = res.height;
         }
@@ -88,17 +106,30 @@ const WidgetBase = (props: WidgetBaseProps) => {
         return url;
     };
 
+    const onNavigationStateChange = (event) => {
+        if (event?.url?.indexOf?.('https://cdn.postpay.io/') < 0) {
+            webViewRef.current.stopLoading();
+            Linking.openURL(event.url);
+        }
+    };
+
+    const MAX_HEIGHT = deviceHeight - 200;
+    const isModal = widgetType === 'info-modal';
+
     return (
-        <View style={[{ height: webViewHeight }, style]}>
+        <View style={[{ height: webViewHeight > MAX_HEIGHT ? MAX_HEIGHT : webViewHeight }, style]}>
             <AutoHeightWebView
+                ref={webViewRef}
                 viewportContent={'width=device-width, user-scalable=no'}
                 source={{
                     uri: getUrl(),
                 }}
                 style={widgetType !== 'info-modal' && { width: style?.width }}
                 javaScriptEnabled={true}
-                scrollEnabled={false}
+                scrollEnabled={isModal}
                 onMessage={onMessage}
+                bounces={false}
+                onNavigationStateChange={onNavigationStateChange}
             />
         </View>
     );
