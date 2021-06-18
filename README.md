@@ -14,6 +14,10 @@ to render webview. Therefore this library needs to be installed **AND** linked i
 
 Other than the above dependency this library uses pure javascript and supports both iOS and Android
 
+## Example
+
+You can check it out [react-native-postpay-widget-example](https://github.com/postpayio/react-native-postpay-widget-example)
+
 ## Getting started
 
 `$ npm install react-native-postpay-widget --save`
