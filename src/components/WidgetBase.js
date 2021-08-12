@@ -38,7 +38,6 @@ const WidgetBase = (props: WidgetBaseProps) => {
 
     const onMessage = ({ nativeEvent }) => {
         const res = JSON.parse(nativeEvent.data);
-        console.log(res);
         const isAndroid = Platform.OS === 'android';
         if (
             (res.type === 'PostpayWidgetLoaded' &&
@@ -106,11 +105,12 @@ const WidgetBase = (props: WidgetBaseProps) => {
         return url;
     };
 
-    const onNavigationStateChange = (event) => {
-        if (event?.url?.indexOf?.('https://cdn.postpay.io/') < 0) {
-            webViewRef.current.stopLoading();
-            Linking.openURL(event.url);
+    const onShouldStartLoadWithRequest = (request) => {
+        if (request?.url?.indexOf?.('https://cdn.postpay.io/') < 0) {
+            Linking.openURL(request.url);
+            return false;
         }
+        return true;
     };
 
     const MAX_HEIGHT = deviceHeight - 200;
@@ -129,7 +129,7 @@ const WidgetBase = (props: WidgetBaseProps) => {
                 scrollEnabled={isModal}
                 onMessage={onMessage}
                 bounces={false}
-                onNavigationStateChange={onNavigationStateChange}
+                onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             />
         </View>
     );
