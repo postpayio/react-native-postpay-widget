@@ -39,6 +39,16 @@ const WidgetBase = (props: WidgetBaseProps) => {
     const onMessage = ({ nativeEvent }) => {
         const res = JSON.parse(nativeEvent.data);
         const isAndroid = Platform.OS === 'android';
+        if (res.type === 'PostpayInfoModalClose') {
+            requestCloseModal?.();
+        }
+        if (res.url) {
+            if (!onPressLink) {
+                Linking.openURL(res.url);
+                return;
+            }
+            onPressLink?.(res.url);
+        }
         if (
             (res.type === 'PostpayWidgetLoaded' &&
                 widgetType === 'payment-summary' &&
@@ -62,16 +72,6 @@ const WidgetBase = (props: WidgetBaseProps) => {
             }
             setWebViewHeight(res.height);
             currentHeight.current = res.height;
-        }
-        if (res.type === 'PostpayInfoModalClose') {
-            requestCloseModal?.();
-        }
-        if (res.url) {
-            if (!onPressLink) {
-                Linking.openURL(res.url);
-                return;
-            }
-            onPressLink?.(res.url);
         }
     };
 
@@ -113,7 +113,7 @@ const WidgetBase = (props: WidgetBaseProps) => {
         return true;
     };
 
-    const MAX_HEIGHT = deviceHeight - 200;
+    const MAX_HEIGHT = deviceHeight - 100;
     const isModal = widgetType === 'info-modal';
 
     return (
