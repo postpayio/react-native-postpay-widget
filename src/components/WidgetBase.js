@@ -117,7 +117,9 @@ const WidgetBase = (props: WidgetBaseProps) => {
     const isModal = widgetType === 'info-modal';
 
     return (
-        <View style={[{ height: webViewHeight > MAX_HEIGHT ? MAX_HEIGHT : webViewHeight }, style]}>
+        <View 
+            renderToHardwareTextureAndroid={true} 
+            style={[{ height: webViewHeight > MAX_HEIGHT ? MAX_HEIGHT : webViewHeight }, style]}>
             <AutoHeightWebView
                 ref={webViewRef}
                 viewportContent={'width=device-width, user-scalable=no'}
