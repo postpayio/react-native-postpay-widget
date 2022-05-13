@@ -7,6 +7,8 @@
 
 Postpay SDK for React Native, this library supports both iOS & Android
 
+_Base on https://ui.postpay.io/widgets (Using for website integratetion)_
+
 ## Prerequisites
 
 This library uses [react-native-webview](https://github.com/react-native-webview/react-native-webview)
