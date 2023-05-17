@@ -52,7 +52,7 @@ const WidgetBase = (props: WidgetBaseProps) => {
         if (
             (res.type === 'PostpayWidgetLoaded' &&
                 widgetType === 'payment-summary' &&
-                (numInstalments < 2 || !numInstalments)) ||
+                (!numInstalments)) ||
             isAndroid ||
             widgetType === 'info-modal'
         ) {
@@ -117,8 +117,8 @@ const WidgetBase = (props: WidgetBaseProps) => {
     const isModal = widgetType === 'info-modal';
 
     return (
-        <View 
-            renderToHardwareTextureAndroid={true} 
+        <View
+            renderToHardwareTextureAndroid={true}
             style={[{ height: webViewHeight > MAX_HEIGHT ? MAX_HEIGHT : webViewHeight }, style]}>
             <AutoHeightWebView
                 ref={webViewRef}
